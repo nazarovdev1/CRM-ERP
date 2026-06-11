@@ -1,0 +1,283 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  SALES
+  WAREHOUSE
+  VIEWER
+}
+
+enum POStatus {
+  DRAFT
+  ORDERED
+  RECEIVED
+  CANCELLED
+}
+
+enum SOStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  COMPLETED
+  CANCELLED
+}
+
+enum InvoiceStatus {
+  UNPAID
+  PARTIAL
+  PAID
+  OVERDUE
+}
+
+enum CustomerType {
+  RETAIL
+  WHOLESALE
+  PARTNER
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  LOST
+  CONVERTED
+}
+
+enum DealStage {
+  PROSPECTING
+  NEGOTIATION
+  WON
+  LOST
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         Role     @default(VIEWER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  leads    Lead[]   @relation("AssignedLeads")
+  deals    Deal[]   @relation("AssignedDeals")
+  tasks    Task[]   @relation("AssignedTasks")
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Supplier {
+  id            String          @id @default(uuid())
+  companyName   String
+  contactPerson String
+  phone         String?
+  email         String?
+  address       String?
+  notes         String?
+  products      Product[]
+  purchaseOrders PurchaseOrder[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model Product {
+  id             String               @id @default(uuid())
+  name           String
+  SKU            String               @unique
+  categoryId     String
+  category       Category             @relation(fields: [categoryId], references: [id])
+  size           String?
+  color          String?
+  costPrice      Float
+  salePrice      Float
+  stockQuantity  Int                  @default(0)
+  reorderLevel   Int                  @default(5)
+  supplierId     String?
+  supplier       Supplier?            @relation(fields: [supplierId], references: [id])
+  status         String               @default("ACTIVE") // ACTIVE, ARCHIVED
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+
+  movements      InventoryMovement[]
+  poItems        PurchaseOrderItem[]
+  soItems        SalesOrderItem[]
+}
+
+model InventoryMovement {
+  id        String   @id @default(uuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int
+  type      String   // IN, OUT
+  reason    String   // PURCHASE, SALE, RETURN, ADJUSTMENT
+  notes     String?
+  createdAt DateTime @default(now())
+}
+
+model PurchaseOrder {
+  id          String              @id @default(uuid())
+  orderNumber String              @unique
+  supplierId  String
+  supplier    Supplier            @relation(fields: [supplierId], references: [id])
+  status      POStatus            @default(DRAFT)
+  totalAmount Float               @default(0)
+  items       PurchaseOrderItem[]
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+}
+
+model PurchaseOrderItem {
+  id              String        @id @default(uuid())
+  purchaseOrderId String
+  purchaseOrder   PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  productId       String
+  product         Product       @relation(fields: [productId], references: [id])
+  quantity        Int
+  costPrice       Float
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model Customer {
+  id           String        @id @default(uuid())
+  name         String
+  phone        String?
+  email        String?
+  address      String?
+  type         CustomerType  @default(WHOLESALE)
+  notes        String?
+  salesOrders  SalesOrder[]
+  deals        Deal[]
+  invoices     Invoice[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Lead {
+  id           String     @id @default(uuid())
+  name         String
+  phone        String?
+  email        String?
+  source       String?    // Website, Referral, Cold Call, Ads
+  interest     String?    // Jackets, Dresses, Bulk Clothing, etc.
+  status       LeadStatus @default(NEW)
+  assignedToId String?
+  assignedTo   User?      @relation("AssignedLeads", fields: [assignedToId], references: [id])
+  notes        String?
+  tasks        Task[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Deal {
+  id                String    @id @default(uuid())
+  customerId        String
+  customer          Customer  @relation(fields: [customerId], references: [id])
+  title             String
+  value             Float
+  stage             DealStage @default(PROSPECTING)
+  expectedCloseDate DateTime?
+  probability       Int       @default(20) // Percentage
+  assignedToId      String?
+  assignedTo        User?     @relation("AssignedDeals", fields: [assignedToId], references: [id])
+  tasks             Task[]
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model Task {
+  id           String       @id @default(uuid())
+  title        String
+  description  String?
+  dueDate      DateTime?
+  priority     TaskPriority @default(MEDIUM)
+  status       TaskStatus   @default(PENDING)
+  assignedToId String?
+  assignedTo   User?        @relation("AssignedTasks", fields: [assignedToId], references: [id])
+  leadId       String?
+  lead         Lead?        @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  dealId       String?
+  deal         Deal?        @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+model SalesOrder {
+  id          String           @id @default(uuid())
+  orderNumber String           @unique
+  customerId  String
+  customer    Customer         @relation(fields: [customerId], references: [id])
+  status      SOStatus         @default(PENDING)
+  subtotal    Float            @default(0)
+  discount    Float            @default(0)
+  tax         Float            @default(0)
+  total       Float            @default(0)
+  items       SalesOrderItem[]
+  invoices    Invoice[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model SalesOrderItem {
+  id           String     @id @default(uuid())
+  salesOrderId String
+  salesOrder   SalesOrder @relation(fields: [salesOrderId], references: [id], onDelete: Cascade)
+  productId    String
+  product      Product    @relation(fields: [productId], references: [id])
+  quantity     Int
+  unitPrice    Float
+  discount     Float      @default(0)
+  total        Float
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Invoice {
+  id            String        @id @default(uuid())
+  invoiceNumber String        @unique
+  salesOrderId  String
+  salesOrder    SalesOrder    @relation(fields: [salesOrderId], references: [id])
+  customerId    String
+  customer      Customer      @relation(fields: [customerId], references: [id])
+  totalAmount   Float
+  paidAmount    Float         @default(0)
+  status        InvoiceStatus @default(UNPAID)
+  dueDate       DateTime
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model ActivityLog {
+  id          String   @id @default(uuid())
+  type        String   // LEAD_CREATED, LEAD_CONVERTED, DEAL_UPDATED, SO_CREATED, PO_RECEIVED, etc.
+  description String
+  userId      String?
+  userName    String?
+  createdAt   DateTime @default(now())
+}

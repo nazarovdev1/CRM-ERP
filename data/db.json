@@ -1,0 +1,468 @@
+{
+  "users": [
+    {
+      "id": "user-admin",
+      "email": "admin@luxx.uz",
+      "name": "Aleksey Smirnov (Admin)",
+      "passwordHash": "$2a$10$Wp8U81YqU.0D0Z1lXz5z1O6bHghdJgB/U6Qz9rD1vYQGqK1E0KxO.",
+      "role": "ADMIN"
+    },
+    {
+      "id": "user-manager",
+      "email": "manager@luxx.uz",
+      "name": "Shakhnoza Karimova (Manager)",
+      "passwordHash": "$2a$10$898F908Y8U7H6G5F5E4D3C2B1A9S8D7F6G5H4J3K2L1M0N9B8V7C6",
+      "role": "MANAGER"
+    },
+    {
+      "id": "user-sales",
+      "email": "sales@luxx.uz",
+      "name": "Timur Alimov (Sales)",
+      "passwordHash": "$2a$10$898F908Y8U7H6G5F5E4D3C2B1A9S8D7F6G5H4J3K2L1M0N9B8V7C6",
+      "role": "SALES"
+    },
+    {
+      "id": "user-warehouse",
+      "email": "warehouse@luxx.uz",
+      "name": "Jasur Nematov (Warehouse)",
+      "passwordHash": "$2a$10$898F908Y8U7H6G5F5E4D3C2B1A9S8D7F6G5H4J3K2L1M0N9B8V7C6",
+      "role": "WAREHOUSE"
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat-jkt",
+      "name": "Jackets & Coats"
+    },
+    {
+      "id": "cat-drs",
+      "name": "Dresses"
+    },
+    {
+      "id": "cat-act",
+      "name": "Activewear"
+    },
+    {
+      "id": "cat-knt",
+      "name": "Knitwear"
+    },
+    {
+      "id": "cat-dnm",
+      "name": "Denim"
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "sup-sinotex",
+      "companyName": "SinoTex Garment Co.",
+      "contactPerson": "Li Wei",
+      "phone": "+86 21 5555 1234",
+      "email": "contact@sinotex.com",
+      "address": "Block 4, Pudong Apparel Zone, Shanghai, China",
+      "notes": "Primary supplier for high-end silk dresses and premium activewear."
+    },
+    {
+      "id": "sup-bakucotton",
+      "companyName": "Baku Cotton Mills",
+      "contactPerson": "Anar Aliyev",
+      "phone": "+994 12 444 5566",
+      "email": "info@bakucotton.az",
+      "address": "88 Neftchiler Ave, Baku, Azerbaijan",
+      "notes": "High-quality raw cotton inputs and denim manufacturers."
+    },
+    {
+      "id": "sup-istanbul",
+      "companyName": "Istanbul Apparel Wholesale",
+      "contactPerson": "Mehmet Demir",
+      "phone": "+90 212 333 4455",
+      "email": "sales@istanbulapparel.tr",
+      "address": "Merter Textile District, Istanbul, Turkey",
+      "notes": "Excellent source for woolen knitwear and winter outerwear."
+    }
+  ],
+  "products": [
+    {
+      "id": "prod-leather-jkt",
+      "name": "Classic Leather Biker Jacket",
+      "SKU": "LXX-JKT-01",
+      "categoryId": "cat-jkt",
+      "size": "L",
+      "color": "Black",
+      "costPrice": 45,
+      "salePrice": 89.99,
+      "stockQuantity": 50,
+      "reorderLevel": 10,
+      "supplierId": "sup-istanbul",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "prod-silk-drs",
+      "name": "Summer Silk Floral Dress",
+      "SKU": "LXX-DRS-02",
+      "categoryId": "cat-drs",
+      "size": "M",
+      "color": "Red/Floral",
+      "costPrice": 25,
+      "salePrice": 49.99,
+      "stockQuantity": 120,
+      "reorderLevel": 15,
+      "supplierId": "sup-sinotex",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "prod- leggings",
+      "name": "Athletic Seamless Leggings",
+      "SKU": "LXX-ACT-03",
+      "categoryId": "cat-act",
+      "size": "S",
+      "color": "Navy Blue",
+      "costPrice": 12,
+      "salePrice": 29.99,
+      "stockQuantity": 80,
+      "reorderLevel": 15,
+      "supplierId": "sup-sinotex",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "prod-cashmere-swtr",
+      "name": "Cashmere V-Neck Sweater",
+      "SKU": "LXX-KNT-04",
+      "categoryId": "cat-knt",
+      "size": "XL",
+      "color": "Beige",
+      "costPrice": 55,
+      "salePrice": 110,
+      "stockQuantity": 8,
+      "reorderLevel": 15,
+      "supplierId": "sup-istanbul",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "prod-denim-jeans",
+      "name": "Premium Denim Slim-Fit Jeans",
+      "SKU": "LXX-DNM-05",
+      "categoryId": "cat-dnm",
+      "size": "32/34",
+      "color": "Indigo Blue",
+      "costPrice": 20,
+      "salePrice": 45,
+      "stockQuantity": 2,
+      "reorderLevel": 10,
+      "supplierId": "sup-bakucotton",
+      "status": "ACTIVE"
+    }
+  ],
+  "customers": [
+    {
+      "id": "cust-tashkent",
+      "name": "Tashkent Fashion Retail Ltd",
+      "phone": "+998 71 234 5678",
+      "email": "dilshod@tashfashioned.uz",
+      "address": "45 Navoi Blvd, Chorsu, Tashkent, Uzbekistan",
+      "type": "WHOLESALE",
+      "notes": "Major wholesale partner running 5 stores across Uzbekistan."
+    },
+    {
+      "id": "cust-samarkand",
+      "name": "Samarkand Boutique Owner",
+      "phone": "+998 66 111 2222",
+      "email": "madina@samarkandboutique.com",
+      "address": "12 Registon St, Samarkand, Uzbekistan",
+      "type": "RETAIL",
+      "notes": "High-end boutique buyer, regularly purchases dresses and sweaters."
+    },
+    {
+      "id": "cust-partners",
+      "name": "Central Asia Apparel Partners",
+      "phone": "+7 727 333 4455",
+      "email": "timur@caap.kz",
+      "address": "50 Abay Ave, Almaty, Kazakhstan",
+      "type": "PARTNER",
+      "notes": "Logistics and shipping alliance partner distributing to Central Asian countries."
+    }
+  ],
+  "leads": [
+    {
+      "id": "lead-bukhara",
+      "name": "Kamila Rakhimova (Bukhara Retail)",
+      "phone": "+998 90 345 6789",
+      "email": "kamila@bukhara.uz",
+      "source": "Website",
+      "interest": "Summer Silk Floral Dress",
+      "status": "QUALIFIED",
+      "assignedToId": "user-sales",
+      "notes": "Requested a quote for 200 items in red/floral sizes S and M."
+    },
+    {
+      "id": "lead-urgench",
+      "name": "Nodir Bekmurodov (Urgench Men's Shop)",
+      "phone": "+998 93 111 3344",
+      "email": "nodir@urgench.uz",
+      "source": "Cold Call",
+      "interest": "Leather Biker Jackets",
+      "status": "CONTACTED",
+      "assignedToId": "user-sales",
+      "notes": "Intrigued by Turkish leather biker jackets, requested sample sizing."
+    },
+    {
+      "id": "lead-almaty",
+      "name": "Elena Kim (Almaty Fashion Mall)",
+      "phone": "+7 701 555 6677",
+      "email": "elena@almatyfashion.kz",
+      "source": "Referral",
+      "interest": "Knitwear / Sweaters",
+      "status": "NEW",
+      "assignedToId": "user-sales",
+      "notes": "Inquired through Turkish agents, very high budget client."
+    }
+  ],
+  "deals": [
+    {
+      "id": "deal-outerwear",
+      "customerId": "cust-tashkent",
+      "title": "Autumn Outerwear Contract",
+      "value": 5000,
+      "stage": "NEGOTIATION",
+      "expectedCloseDate": "2026-07-15",
+      "probability": 60,
+      "assignedToId": "user-sales"
+    },
+    {
+      "id": "deal-denim",
+      "customerId": "cust-partners",
+      "title": "Denim Bulk Order",
+      "value": 12500,
+      "stage": "PROSPECTING",
+      "expectedCloseDate": "2026-08-30",
+      "probability": 20,
+      "assignedToId": "user-sales"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-nodir",
+      "title": "Call Nodir to follow up on winter jacket sizing",
+      "description": "Urgench buyer was busy last week. Need to confirm sizing measurements from Istanbul suppliers.",
+      "dueDate": "2026-06-12",
+      "priority": "HIGH",
+      "status": "PENDING",
+      "assignedToId": "user-sales",
+      "leadId": "lead-urgench"
+    },
+    {
+      "id": "task-denim",
+      "title": "Send denim bulk price catalog",
+      "description": "Compile and send PDF wholesale catalog to Central Asia Apparel Partners.",
+      "dueDate": "2026-06-10",
+      "priority": "MEDIUM",
+      "status": "PENDING",
+      "assignedToId": "user-sales",
+      "dealId": "deal-denim"
+    },
+    {
+      "id": "task-sample-completed",
+      "title": "Confirm SinoTex sample quality",
+      "description": "Inspected leggings sample received on June 1st. Passed QC standards.",
+      "dueDate": "2026-06-05",
+      "priority": "LOW",
+      "status": "COMPLETED",
+      "assignedToId": "user-sales"
+    }
+  ],
+  "movements": [
+    {
+      "id": "mov-001",
+      "productId": "prod-leather-jkt",
+      "quantity": 50,
+      "type": "IN",
+      "reason": "PURCHASE",
+      "notes": "Initial inventory setup from Istanbul Apparel.",
+      "createdAt": "2026-05-10T10:00:00Z"
+    },
+    {
+      "id": "mov-002",
+      "productId": "prod-silk-drs",
+      "quantity": 120,
+      "type": "IN",
+      "reason": "PURCHASE",
+      "notes": "Initial inventory setup from SinoTex.",
+      "createdAt": "2026-05-10T10:05:00Z"
+    },
+    {
+      "id": "mov-003",
+      "productId": "prod- leggings",
+      "quantity": 80,
+      "type": "IN",
+      "reason": "PURCHASE",
+      "notes": "Initial activewear import.",
+      "createdAt": "2026-05-10T10:10:00Z"
+    },
+    {
+      "id": "mov-004",
+      "productId": "prod-cashmere-swtr",
+      "quantity": 8,
+      "type": "IN",
+      "reason": "PURCHASE",
+      "notes": "Initial knitwear stock import.",
+      "createdAt": "2026-05-10T10:15:00Z"
+    },
+    {
+      "id": "mov-005",
+      "productId": "prod-denim-jeans",
+      "quantity": 2,
+      "type": "IN",
+      "reason": "PURCHASE",
+      "notes": "Low-stock opening inventory.",
+      "createdAt": "2026-05-10T10:20:00Z"
+    }
+  ],
+  "purchaseOrders": [
+    {
+      "id": "po-001",
+      "orderNumber": "PO-2026-001",
+      "supplierId": "sup-istanbul",
+      "status": "RECEIVED",
+      "totalAmount": 4500,
+      "createdAt": "2026-05-08T09:00:00Z",
+      "items": [
+        {
+          "productId": "prod-leather-jkt",
+          "quantity": 50,
+          "costPrice": 45
+        },
+        {
+          "productId": "prod-cashmere-swtr",
+          "quantity": 10,
+          "costPrice": 55
+        }
+      ]
+    },
+    {
+      "id": "po-002",
+      "orderNumber": "PO-2026-002",
+      "supplierId": "sup-sinotex",
+      "status": "ORDERED",
+      "totalAmount": 2200,
+      "createdAt": "2026-06-01T14:30:00Z",
+      "items": [
+        {
+          "productId": "prod- silk-drs",
+          "quantity": 50,
+          "costPrice": 25
+        },
+        {
+          "productId": "prod- leggings",
+          "quantity": 50,
+          "costPrice": 12
+        }
+      ]
+    }
+  ],
+  "salesOrders": [
+    {
+      "id": "so-001",
+      "orderNumber": "SO-2026-001",
+      "customerId": "cust-tashkent",
+      "status": "COMPLETED",
+      "subtotal": 3599.6,
+      "discount": 100,
+      "tax": 0,
+      "total": 3499.6,
+      "createdAt": "2026-05-20T11:00:00Z",
+      "items": [
+        {
+          "productId": "prod-leather-jkt",
+          "quantity": 20,
+          "unitPrice": 89.99,
+          "discount": 0,
+          "total": 1799.8
+        },
+        {
+          "productId": "prod-silk-drs",
+          "quantity": 36,
+          "unitPrice": 49.99,
+          "discount": 0,
+          "total": 1799.8
+        }
+      ]
+    },
+    {
+      "id": "so-002",
+      "orderNumber": "SO-2026-002",
+      "customerId": "cust-samarkand",
+      "status": "CONFIRMED",
+      "subtotal": 1249.75,
+      "discount": 50,
+      "tax": 0,
+      "total": 1199.75,
+      "createdAt": "2026-06-05T15:00:00Z",
+      "items": [
+        {
+          "productId": "prod-silk-drs",
+          "quantity": 25,
+          "unitPrice": 49.99,
+          "discount": 0,
+          "total": 1249.75
+        }
+      ]
+    }
+  ],
+  "invoices": [
+    {
+      "id": "inv-001",
+      "invoiceNumber": "INV-2026-001",
+      "salesOrderId": "so-001",
+      "customerId": "cust-tashkent",
+      "totalAmount": 3499.6,
+      "paidAmount": 3499.6,
+      "status": "PAID",
+      "dueDate": "2026-06-20",
+      "createdAt": "2026-05-20T11:15:00Z"
+    },
+    {
+      "id": "inv-002",
+      "invoiceNumber": "INV-2026-002",
+      "salesOrderId": "so-002",
+      "customerId": "cust-samarkand",
+      "totalAmount": 1199.75,
+      "paidAmount": 500,
+      "status": "PARTIAL",
+      "dueDate": "2026-07-05",
+      "createdAt": "2026-06-05T15:10:00Z"
+    }
+  ],
+  "logs": [
+    {
+      "id": "act-1",
+      "type": "LEAD_CREATED",
+      "description": "New Lead Elena Kim (Almaty Fashion Mall) was registered in the system.",
+      "userId": "user-sales",
+      "userName": "Timur Alimov",
+      "createdAt": "2026-06-11T09:00:00Z"
+    },
+    {
+      "id": "act-2",
+      "type": "SO_CREATED",
+      "description": "Sales Order SO-2026-002 confirmed for Samarkand Boutique Owner.",
+      "userId": "user-sales",
+      "userName": "Timur Alimov",
+      "createdAt": "2026-06-05T15:00:00Z"
+    },
+    {
+      "id": "act-3",
+      "type": "INVENTORY_UPDATE",
+      "description": "Low Stock Alert: Premium Denim Slim-Fit Jeans quantity is now 2 (reorder level is 10).",
+      "userId": "user-warehouse",
+      "userName": "Jasur Nematov",
+      "createdAt": "2026-06-10T12:00:00Z"
+    },
+    {
+      "id": "act-4",
+      "type": "PO_RECEIVED",
+      "description": "Purchase Order PO-2026-001 marked RECEIVED. Stock quantities updated.",
+      "userId": "user-warehouse",
+      "userName": "Jasur Nematov",
+      "createdAt": "2026-05-15T11:00:00Z"
+    }
+  ]
+}

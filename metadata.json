@@ -1,0 +1,6 @@
+{
+  "name": "Luxx ERP CRM Cloud Platform",
+  "description": "A secure full-stack cloud ERP and CRM platform for wholesale clothing distributor luxx.uz, featuring inventory control, customer relations, WMS-compatible insights, loading performance metrics, and automated workflows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
