@@ -66,23 +66,6 @@ package-lock.json
 
 For temporary use, the demo users are already in `data/db.json`.
 
-## CI/CD
-
-GitHub Actions deployment is configured in:
-
-```text
-.github/workflows/deploy-plesk.yml
-```
-
-CI/CD setup notes and required GitHub Secrets are in:
-
-```text
-CI_CD.md
-```
-
-The CI/CD workflow does not upload `data/db.json`, so live temporary data on
-Plesk is not overwritten by future deployments.
-
 ## Demo login
 
 ```text

@@ -1,4 +1,4 @@
-name: Deploy to Plesk
+name: Deploy to Plesk via FTP
 
 on:
   push:
@@ -34,29 +34,23 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy files to Plesk
-        uses: appleboy/scp-action@v0.1.7
+      - name: Deploy by FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          host: ${{ secrets.PLESK_HOST }}
-          username: ${{ secrets.PLESK_USERNAME }}
-          password: ${{ secrets.PLESK_PASSWORD }}
-          key: ${{ secrets.PLESK_SSH_KEY }}
-          port: ${{ secrets.PLESK_PORT || 22 }}
-          source: "dist/**,prisma/**,server/**,package.json,package-lock.json,PLESK_DEPLOY.md,.env.plesk.example"
-          target: ${{ secrets.PLESK_TARGET_PATH }}
-          overwrite: true
-
-      - name: Install production dependencies and restart app
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.PLESK_HOST }}
-          username: ${{ secrets.PLESK_USERNAME }}
-          password: ${{ secrets.PLESK_PASSWORD }}
-          key: ${{ secrets.PLESK_SSH_KEY }}
-          port: ${{ secrets.PLESK_PORT || 22 }}
-          script: |
-            set -e
-            cd "${{ secrets.PLESK_TARGET_PATH }}"
-            mkdir -p data tmp
-            npm install --omit=dev
-            touch tmp/restart.txt
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          local-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/node_modules/**
+            **/.env*
+            **/data/db.json
+            **/src/**
+            **/assets/**
+            **/plesk-upload/**
+            **/*.zip
+            **/README.md
