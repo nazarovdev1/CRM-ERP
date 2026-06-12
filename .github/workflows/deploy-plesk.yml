@@ -1,0 +1,62 @@
+name: Deploy to Plesk
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: plesk-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy files to Plesk
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.PLESK_HOST }}
+          username: ${{ secrets.PLESK_USERNAME }}
+          password: ${{ secrets.PLESK_PASSWORD }}
+          key: ${{ secrets.PLESK_SSH_KEY }}
+          port: ${{ secrets.PLESK_PORT || 22 }}
+          source: "dist/**,prisma/**,server/**,package.json,package-lock.json,PLESK_DEPLOY.md,.env.plesk.example"
+          target: ${{ secrets.PLESK_TARGET_PATH }}
+          overwrite: true
+
+      - name: Install production dependencies and restart app
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PLESK_HOST }}
+          username: ${{ secrets.PLESK_USERNAME }}
+          password: ${{ secrets.PLESK_PASSWORD }}
+          key: ${{ secrets.PLESK_SSH_KEY }}
+          port: ${{ secrets.PLESK_PORT || 22 }}
+          script: |
+            set -e
+            cd "${{ secrets.PLESK_TARGET_PATH }}"
+            mkdir -p data tmp
+            npm install --omit=dev
+            touch tmp/restart.txt
