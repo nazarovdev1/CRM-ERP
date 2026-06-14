@@ -39,7 +39,7 @@ jobs:
           rm -rf .deploy
           mkdir -p .deploy
           cp -r dist prisma server .deploy/
-          cp package.json package-lock.json PLESK_DEPLOY.md .env.plesk.example .deploy/
+          cp package.json package-lock.json PLESK_DEPLOY.md .deploy/
 
       - name: Deploy by FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
