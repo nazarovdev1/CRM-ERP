@@ -34,6 +34,13 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Prepare FTP payload
+        run: |
+          rm -rf .deploy
+          mkdir -p .deploy
+          cp -r dist prisma server .deploy/
+          cp package.json package-lock.json PLESK_DEPLOY.md .env.plesk.example .deploy/
+
       - name: Deploy by FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -41,15 +48,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          local-dir: ./
+          local-dir: ./.deploy/
           exclude: |
-            **/.git*
-            **/.git*/**
-            **/.github/**
-            **/node_modules/**
             **/.env*
             **/data/db.json
-            **/src/**
-            **/plesk-upload/**
-            **/*.zip
-            **/README.md
