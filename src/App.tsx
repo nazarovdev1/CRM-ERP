@@ -119,7 +119,7 @@ export default function App() {
               <div className="w-8 h-8 rounded-full border-2 border-[#D4AF37] flex items-center justify-center font-display font-black text-xs text-[#D4AF37]">
                 L
               </div>
-              <span className="font-display font-medium tracking-widest text-[#D4AF37] uppercase text-sm">LUXX.UZ</span>
+              <span className="font-display font-medium tracking-widest text-[#D4AF37] uppercase text-sm">Remodule</span>
             </div>
             
             <button className="lg:hidden text-gray-400 hover:text-white" onClick={() => setSidebarOpen(false)}>
